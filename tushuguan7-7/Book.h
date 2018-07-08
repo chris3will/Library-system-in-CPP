@@ -5,7 +5,7 @@
 #include<string>
 #include<fstream>
 using namespace std;
-class People;
+//class People;
 class Book
 {
 public:

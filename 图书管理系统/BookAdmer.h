@@ -1,4 +1,5 @@
-#pragma once
+
+#include"Library.h"
 #include"People.h"
 class BookAdmer:public People
 {
