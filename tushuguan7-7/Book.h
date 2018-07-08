@@ -30,8 +30,8 @@ public:
 		//P_people();无参的函数对象更改？
 	}
 	void updatepoint(double t_d);
-	void input();//输入信息的接口
-	void ReadFile(string &temp);//从文件读入信息的接口
+	void input();//a way to input the message.
+	void ReadFile(string &temp);//the main part in this class.!
 };
 #endif // !BOOK_H_
 #pragma once

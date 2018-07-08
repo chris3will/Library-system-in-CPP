@@ -75,7 +75,6 @@ void Library::Surface()//We now just have a common  surface without distinguish 
 		cout << "6:Find a book" << endl;//if he is a reader,add the function for him to borrow the book.
 		cout << "7:Leave the library" << endl;
 		cin >> i_choice;
-		cout << "\b";
 		if (i_choice >= 1 && i_choice <= 7)
 		{
 			switch (i_choice)
@@ -163,11 +162,8 @@ void Library::Modify()
 	cout << "Enter the name you want to modify:";
 	cin >> t_name;
 	Book *pos = head->next;
-	int i_num = Getabooknum(t_name);
-	for (int i = 0; i < i_num; i++)
-	{
-
-	}
+	//int i_num = Getabooknum(t_name);
+	
 	for (pos; pos != end; pos = pos->next)
 	{
 		if (t_name == pos->s_name)
@@ -219,11 +215,11 @@ void Library::Del_Booknode()
 	Book *pos = head->next;
 	if (pos	== end)
 	{
-		cout << "empty...So there is nothing to delete" << endl;
+		cout << "Empty...So there is nothing to delete" << endl;
 		return;
 	}
 
-	cout << "please enter the name you want to delete:";
+	cout << "Please enter the name you want to delete:";
 	cin >> t_name;
 	cout << endl;
 	int num = Getabooknum(t_name);//the flag==0's num.
@@ -267,7 +263,7 @@ void Library::Del_Booknode()
 	system("cls");
 }
 void Library::Borrowbook()
-{
+{//this fuction must be used by a student or a teacher. We need 
 	Book *pos = head->next;
 	if (pos == end)
 	{
