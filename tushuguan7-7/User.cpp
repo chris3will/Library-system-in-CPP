@@ -4,7 +4,9 @@
 #include<iostream>
 #include<string>
 #include<fstream>
-
+/*1:return the book
+2:find the book
+3:delete the book*/
 void User::User_init()
 {
 	u_head = new People;
@@ -20,7 +22,7 @@ void User::User_init()
 							  //char ch = in.get();
 	if (u_in.eof())
 	{
-		cout << "file is empty" << endl;
+		cout << "File is empty" << endl;
 	}
 
 	//if it is not empty
@@ -119,5 +121,11 @@ void User::Add_People()
 		}
 	}
 }
+
+void User::Sign_in()
+{
+
+}
+
 
 

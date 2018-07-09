@@ -285,18 +285,10 @@ void Library::Del_Booknode()
 	system("pause");
 	system("cls");
 }
-void Library::Borrowbook()
+void Library::Borrowbook(Book *pos,People *temp)
 {//this fuction must be used by a student or a teacher. We need 
-	Book *pos = head->next;
-	if (pos == end)
-	{
-		cout << "Sorry, my dear reader. We have no book to lend now." << endl;
-	}
-	else
-	{
-		cout << "Please tell us which book do you want to borrow?" << endl;
-	}
-}//still not accomplish!
+	
+}
 int Library::Getabooknum(string st_name)
 {
 	int count = 0;
@@ -310,6 +302,61 @@ int Library::Getabooknum(string st_name)
 	}
 	return count;
 }//Once all we have in the library ,but whether it can be borrow, we need other function to tell.
+void Library::Findacurate(int i_id, People *temp)
+{
+	string t_name;
+	Book *pos = head->next;
+	if (pos == end)
+	{
+		cout << "The library is empty now,we can find no book here!" << endl;
+	}
+	else
+	{
+		cout << "Please enter the book's name,if you want to know something about it." << endl;
+		cin >> t_name;
+		int count = Getabooknum(t_name);
+		if (count>0)
+		{//We can find the book in library.
+			while (pos->s_name != t_name)
+				pos = pos->next;
+			cout << endl;
+			cout << "\t" << pos->s_name << "\t" << pos->s_isbn << "\t" << pos->s_price
+				<< "\t" << pos->s_writer << "\t" << pos->s_point << "\t" << "Remain:" << count << endl;
+			int choice;
+			cout << "What do you want to do now?" << endl;
+			if (i_id == 1||i_id==2)
+			{//system assistant
+				cout << "1:Delete it 2:Add a new just like it 3:Borrow it(only when remain>0)" << endl;
+				cin >> choice;
+				switch(choice)
+				{
+				case 1:Del_Booknode(pos->s_name); break;
+				case 2:Add_Booknode(pos); break;
+				case 3:Borrowbook(pos,temp); break;//we need to store the change of state and the one who borrowed it.
+				}
+			}
+			else if (i_id == 3||i_id==4)
+			{//teacher,student
+				cout << "Do you want to borrow it(only when remain>0)? If so please enter 1 or return back." << endl;
+				cin >> choice;
+				if (choice == 1)
+				{
+					Borrowbook(pos,temp);
+				}
+				else
+				{
+					return;
+				}
+			}			
+		}
+		else
+		{
+			cout << "Sorry,we can't find the book here now,maybe it was borrowed by somebody else!" << endl;
+		}
+	}
+	system("pause");
+	system("cls");
+}
 void Library::Findacurate()//input the name of book then output all the message about the book ,including the remain number.
 {
 	string t_name;
@@ -336,7 +383,7 @@ void Library::Findacurate()//input the name of book then output all the message 
 			cin >> choice;
 			switch (choice)
 			{
-				case 1:Borrowbook(); break;
+				//case 1:Borrowbook(pos,temp); break;
 				case 2:Del_Booknode(t_name);break;
 				case 3:Add_Booknode(pos);break;
 			}

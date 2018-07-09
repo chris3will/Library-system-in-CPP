@@ -1,7 +1,10 @@
 #ifndef LIBRARY_H_
 #define LIBRARY_H_
 #include<cstring>
+#include"People.h"
 #include"Book.h"
+class People;
+class User;
 class Library 
 {
 //里面存着各个结点，每个结点中存储着书的信息
@@ -18,8 +21,9 @@ public:
 	void Add_Booknode(Book *B_temp);
 	void Del_Booknode(string t_name);
 	void Del_Booknode();//Delete the book from the list which shows the book remain in the library.
-	void Borrowbook();//
+	void Borrowbook(Book *pos,People *temp);//
 	void Findacurate();//Find the book's information but NOW still can not make a bond to the one who borrowed it.
+	void Findacurate(int i_id,People *temp);
 	void Modify();//Change the information of the book;
 	//void FindReader();
 	//void Load();

@@ -17,7 +17,8 @@ public:
 	void User_init();
 	void Show_people();
 	void User_Save();
-	void Add_People();
+	void Add_People();//As a system assistant, to do the most powerful thing!
+	void Sign_in();
 };
 
 #endif USER_H_

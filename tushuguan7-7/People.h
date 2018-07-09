@@ -1,13 +1,14 @@
 #pragma once
 #ifndef PEOPLE_H_
 #define PEOPLE_H_
+#include"Book.h"
 #include<iostream>
 #include<cstring>
 #include<vector>
+class Book;
 using namespace std;
 class People
 {
-
 public:
 	People() {};
 	~People() {};

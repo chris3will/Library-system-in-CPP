@@ -1,6 +1,9 @@
 #include"People.h"
+#include"Book.h"
+#include"Library.h"
 #include<string>
 #include<sstream>
+class Book;
 void People::input()
 {
 	cout << "***Please enter people's ID(no space)***:";
@@ -9,15 +12,22 @@ void People::input()
 	cout << "***Please enter people's password(no space)***:";
 	cin >> s_password;
 	cout << endl;
-	cout << "***Please enter book_num if he has borrowed some(int please)***:";
+	cout << "***Please enter book_num if he has borrowed some(no more than 30)(int please)***:";
 	cin >> i_the_book;
 	cout << endl;
+	while (i_the_book > 30)
+	{
+		cout <<"please re-enter the num of book!" << endl;
+		cin >> i_the_book;
+	}
 	string name_temp;
 	int i_all = 0;
 	int k = i_the_book;
+	//One can't borrow more than 
 	while(k > 0)
 	{
 		cout << "***Please enter book's name(no space)***:";
+		cout << "attention: " << k << " left to write!" << endl;
 		cin >> name_temp;
 		v_Bbook.push_back(name_temp);
 		k--;
@@ -58,10 +68,10 @@ void People::ReadFile(string &temp)
 		}
 		if (flag <= 3)
 		{
-			if (flag == 3)
-			{
-				cout << i_the_book << endl;
-			}
+			//if (flag == 3)
+			//{
+			//	cout << i_the_book << endl;
+			//}
 			flag++;
 			i = j + 1;	
 		}
@@ -85,4 +95,24 @@ void People::ReadFile(string &temp)
 	}
 	//begin to read the book if he borrowed something.
 	
+}
+void People::FindBook()
+{
+	int i_flag = s_id.size();//to tell us who he is
+	Library test;
+	test.Lib_init();
+	//if (i_flag == 1)
+	//he is a system assistant
+	test.Findacurate(i_flag,this);
+	//else if(i_flag==2)
+	//{//he is a book assistant
+	//else if (i_flag == 3)
+	//he is a teacher
+	//else if (i_flag == 4)
+	//he is a student ,and his book maxmun can't be more than 10!
+	test.Save();
+	//if(i_flag<1||i_flag>4)
+	//{
+		//cout << "There must be something wrong in your ID ,Please check your identity first!";
+	//}
 }
