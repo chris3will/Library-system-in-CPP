@@ -12,6 +12,7 @@ public:
 	~Library();
 	//关于图书馆类所用到的函数
 	void showtime();
+	void Lib_init();
 	void Surface();
 	void Add_Booknode();//Add the book,whatever the library buy from others or from the reader who once borrowed it;
 	void Add_Booknode(Book *B_temp);

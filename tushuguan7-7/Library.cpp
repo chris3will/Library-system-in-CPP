@@ -5,6 +5,8 @@
 using namespace std;
 Library::Library()
 {
+	/*
+	No file working in the gou zao function, we use a Lib_init() instead
 	head = new Book;
 	head->next = new Book;
 	end = head->next;
@@ -33,6 +35,7 @@ Library::Library()
 		end->next = new Book;
 		end = end->next;
 	}
+	*/
 }
 //xigou function
 Library::~Library()
@@ -311,14 +314,12 @@ void Library::Findacurate()//input the name of book then output all the message 
 			cout << "Do you want to borrow it(1)? Or delete it(2)? Or Add a new one just same like it(3)?" << endl;
 			int choice;
 			cin >> choice;
-			cout << "\b";
 			switch (choice)
 			{
 				case 1:Borrowbook(); break;
 				case 2:Del_Booknode(t_name);break;
 				case 3:Add_Booknode(pos);break;
 			}
-			
 		}
 		else
 		{
@@ -384,4 +385,36 @@ void Library::Swap_Booknode(Book *p, Book *q)
 	tpoint = p->s_point;
 	p->s_point = q->s_point;
 	q->s_point = tpoint;
+}
+
+void Library::Lib_init()
+{
+	head = new Book;
+	head->next = new Book;
+	end = head->next;
+
+	ifstream in("test.csv");//the book's message were all
+							//stored in this file.And this is a major step in the process.
+							//we read the file first to find if it is empty. for eof()can not be 
+							//used as a tool to tell if it is empty. It is only when we are reading
+							//the file and meet the end can we know its is-empty.//or in.eof won't//
+							//won't return the positive,though it is empty.
+							//char ch = in.get();
+	if (in.eof())
+	{
+		cout << "file is empty" << endl;
+	}
+
+	//if it is not empty
+	while (!in.eof())
+	{
+		//cout << "xigoucishu+1";
+		string temp;
+		getline(in, temp);
+		end->ReadFile(temp);
+		if (end->s_name[0] == '\0')
+			break;
+		end->next = new Book;
+		end = end->next;
+	}
 }

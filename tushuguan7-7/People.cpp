@@ -27,9 +27,9 @@ void People::ReadFile(string &temp)
 		{
 		case 1:ss >> s_id; break;
 		case 2:ss >> s_password; break;
-		default:ss >> tempp; break;
+		//default:ss >> tempp; break;
 		}
-  		v[flag - 2] = tempp;
+  		//v[flag - 2] = tempp;
 		//cout << s_name << " " << s_isbn << " " << s_price << " " << s_writer << " " << s_point << " " << i_flag << endl;
 		flag++;
 		i = j + 1;

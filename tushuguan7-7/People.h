@@ -20,6 +20,7 @@ public:
 	vector<string> v;//need a list to store the book one has borrowed
 	string s_id;
 	string s_password;
+	int i_the_book;//to store how many book he has borrorwed, we give him a max-30 vector to store the record.
 	People *next;
 };
 

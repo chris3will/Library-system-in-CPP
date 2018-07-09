@@ -1,6 +1,4 @@
 
-
-
 #include "User.h"
 #include"People.h"
 #include<cstring>
@@ -9,51 +7,49 @@
 #include<fstream>
 
 
-User::User()
-{
-	head = new People;
-	head->next = new People;
-	end = head->next;
 
-	ifstream in("people.csv");//the book's message were all
-							//stored in this file.And this is a major step in the process.
-							//we read the file first to find if it is empty. for eof()can not be 
-							//used as a tool to tell if it is empty. It is only when we are reading
-							//the file and meet the end can we know its is-empty.//or in.eof won't//
-							//won't return the positive,though it is empty.
-							//char ch = in.get();
-	if (in.eof())
+void User::User_init()
+{
+	u_head = new People;
+	u_head->next = new People;
+	u_end = u_head->next;
+
+	ifstream u_in("people.csv");//the book's message were all
+							  //stored in this file.And this is a major step in the process.
+							  //we read the file first to find if it is empty. for eof()can not be 
+							  //used as a tool to tell if it is empty. It is only when we are reading
+							  //the file and meet the end can we know its is-empty.//or in.eof won't//
+							  //won't return the positive,though it is empty.
+							  //char ch = in.get();
+	if (u_in.eof())
 	{
 		cout << "file is empty" << endl;
 	}
 
 	//if it is not empty
-	while (!in.eof())
+	while (!u_in.eof())
 	{
-		//cout << "xigoucishu+1";
 		string temp;
-		getline(in, temp);
-		end->ReadFile(temp);
-		if (end->s_id[0] == '\0')
+		getline(u_in, temp);
+		u_end->ReadFile(temp);
+		if (u_end->s_id[0] == '\0')
 			break;
-		end->next = new People;
-		end = end->next;
+		u_end->next = new People;
+		u_end = u_end->next;
 	}
-	in.close();
 }
-
 void User::Show_people()
 {
-	if (head->next == end)
+	if (u_head->next == u_end)
 	{
 		cout << "The library is Empty! Or there must be something wrong in the list! Please find the fault and solve it first before use." << endl;
 	}
 	else
 	{
-		cout << "\t**NAME**\t**ISBN**\t**PRICE**\t**WRITER**\t**APPRAISE**\t**STATE**" << endl;
+		cout << "\t**ID**\t**PASSWORD**\t**HOWMANY**\t**" << endl;
 		People *pos;
-		pos = head->next;
-		for (pos; pos != end; pos = pos->next)
+		pos = u_head->next;
+		for (pos; pos != u_end; pos = pos->next)
 		{
 			cout << endl;
 			cout << "\t" << pos->s_id << "\t" << pos->s_password << "\t" << endl;
@@ -62,8 +58,25 @@ void User::Show_people()
 	}
 	system("pause");
 }
-
-User::~User()
+void User::User_Save()
 {
+	u_out.open("people.csv");
+	People *pos = u_head->next;
+	if (pos == u_end)
+	{
+		cout << "User is empty.." << endl;
+		return;
+	}
+	else
+	{
+		for (pos; pos != u_end; pos = pos->next)
+		{
+			u_out << pos->s_id << "," << pos->s_password<<"\n";
+		}
+		//for()
+	}
+	u_out.close();
+	cout << "Good Bye! (Save node successfully!)" << endl;
 }
+
 

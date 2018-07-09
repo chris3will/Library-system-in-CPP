@@ -6,15 +6,17 @@
 class User
 {
 private:
-	People *head;
-	People *end;
-	ifstream in;
-	ofstream out;
+	People *u_head;
+	People *u_end;
+	ifstream u_in;
+	ofstream u_out;
 
 public:
+	User() {};
+	~User() {};
+	void User_init();
 	void Show_people();
-	User();
-	~User();
+	void User_Save();
 };
 
 #endif USER_H_
