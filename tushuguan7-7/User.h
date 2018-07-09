@@ -17,6 +17,7 @@ public:
 	void User_init();
 	void Show_people();
 	void User_Save();
+	void Add_People();
 };
 
 #endif USER_H_

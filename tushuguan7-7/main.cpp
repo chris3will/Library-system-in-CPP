@@ -13,6 +13,7 @@ int main()
 	//aa.Lib_init();
 	//aa.Surface();
 	User eobb;
+
 	eobb.User_init();
 	eobb.Show_people();
 	eobb.User_Save();

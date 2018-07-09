@@ -121,6 +121,7 @@
     <ClInclude Include="User.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Account_enter_zlx.cpp" />
     <ClCompile Include="Book.cpp" />
     <ClCompile Include="Library.cpp" />
     <ClCompile Include="People.cpp" />

@@ -46,7 +46,7 @@ void User::Show_people()
 	}
 	else
 	{
-		cout << "\t**ID**\t**PASSWORD**\t**HOWMANY**\t**" << endl;
+		cout << "\t**ID**\t**PASSWORD**\t**HOWMANYBOOK**\t**\t**BOOK1**\t**BOOK2" << endl;
 		People *pos;
 		pos = u_head->next;
 		for (pos; pos != u_end; pos = pos->next)
@@ -78,12 +78,28 @@ void User::User_Save()
 	{
 		for (pos; pos != u_end; pos = pos->next)
 		{
-			u_out << pos->s_id << "," << pos->s_password<<","<<pos->i_the_book<<"\n";
+			u_out << pos->s_id << "," << pos->s_password << "," << pos->i_the_book;
+			if (pos->i_the_book > 0)
+			{
+				for (int i = 0; i < pos->i_the_book; i++)
+				{
+					if (i < pos->i_the_book - 1)
+						u_out << pos->v_Bbook[i] << ",";
+					else
+					{
+						u_out << pos->v_Bbook[i] << '\n';
+					}
+				}
+			}
 		}
-		//for()
 	}
 	u_out.close();
 	cout << "Good Bye! (Save node successfully!)" << endl;
+}
+void User::Add_People() 
+{
+	People *pos = u_head->next;
+
 }
 
 
