@@ -17,7 +17,7 @@ public:
 	void  ReadFile(string &temp);//we have different fuction for different 
 
 public:
-	vector<string> v;//need a list to store the book one has borrowed
+	vector<string> v_Bbook;//need a list to store the book one has borrowed,the maxmum of which is 30,but differ from the identity.
 	string s_id;
 	string s_password;
 	int i_the_book;//to store how many book he has borrorwed, we give him a max-30 vector to store the record.

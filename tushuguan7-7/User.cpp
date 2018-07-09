@@ -42,7 +42,7 @@ void User::Show_people()
 {
 	if (u_head->next == u_end)
 	{
-		cout << "The library is Empty! Or there must be something wrong in the list! Please find the fault and solve it first before use." << endl;
+		cout << "The User list is Empty! Or there must be something wrong in the list! Please find the fault and solve it first before use." << endl;
 	}
 	else
 	{
@@ -52,7 +52,14 @@ void User::Show_people()
 		for (pos; pos != u_end; pos = pos->next)
 		{
 			cout << endl;
-			cout << "\t" << pos->s_id << "\t" << pos->s_password << "\t" << endl;
+			cout << "\t" << pos->s_id << "\t" << pos->s_password << "\t" << pos->i_the_book<<"\t";
+			if (pos->i_the_book > 0)
+			{
+				for (int i = 0; i < pos->i_the_book; i++)
+				{
+					cout << pos->v_Bbook[i] << "\t";
+				}
+			}
 			cout << endl;
 		}
 	}
@@ -71,7 +78,7 @@ void User::User_Save()
 	{
 		for (pos; pos != u_end; pos = pos->next)
 		{
-			u_out << pos->s_id << "," << pos->s_password<<"\n";
+			u_out << pos->s_id << "," << pos->s_password<<","<<pos->i_the_book<<"\n";
 		}
 		//for()
 	}

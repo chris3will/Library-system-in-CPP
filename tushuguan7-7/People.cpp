@@ -4,6 +4,7 @@
 
 void People::ReadFile(string &temp) 
 {
+	int identi;
 	string s_temp(temp);
 	int j = 0;
 	int i = 0;
@@ -18,6 +19,7 @@ void People::ReadFile(string &temp)
 			j++;//to store every son string's length j-i is just the length.
 		}
 		s_out_temp.assign(s_temp, i, j - i);
+		identi = s_out_temp.size();
 		//cout << s_out_temp << endl;
 		stringstream ss;
 		ss.clear();
@@ -27,11 +29,32 @@ void People::ReadFile(string &temp)
 		{
 		case 1:ss >> s_id; break;
 		case 2:ss >> s_password; break;
-		//default:ss >> tempp; break;
+		case 3:ss >> i_the_book; break;
+		default:break;
+			//default:ss >> tempp; break;
 		}
-  		//v[flag - 2] = tempp;
+		//v[flag - 2] = tempp;
 		//cout << s_name << " " << s_isbn << " " << s_price << " " << s_writer << " " << s_point << " " << i_flag << endl;
-		flag++;
-		i = j + 1;
+		if (flag <= 3)
+		{
+			flag++;
+			i = j + 1;	
+		}
+		else
+		{
+			if (i_the_book > 0)
+			{
+				flag++;
+				i = j + 1;
+				v_Bbook.push_back(s_out_temp);
+			}
+			else
+			{
+				i = j + 1;
+				break;
+			}
+		}
 	}
+	//begin to read the book if he borrowed something.
+	
 }
