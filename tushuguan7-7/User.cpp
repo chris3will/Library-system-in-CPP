@@ -1,12 +1,9 @@
-
 #include "User.h"
 #include"People.h"
 #include<cstring>
 #include<iostream>
 #include<string>
 #include<fstream>
-
-
 
 void User::User_init()
 {
@@ -84,7 +81,9 @@ void User::User_Save()
 				for (int i = 0; i < pos->i_the_book; i++)
 				{
 					if (i < pos->i_the_book - 1)
+					{
 						u_out << pos->v_Bbook[i] << ",";
+					}
 					else
 					{
 						u_out << pos->v_Bbook[i] << '\n';
@@ -96,10 +95,29 @@ void User::User_Save()
 	u_out.close();
 	cout << "Good Bye! (Save node successfully!)" << endl;
 }
-void User::Add_People() 
+void User::Add_People()
 {
-	People *pos = u_head->next;
+	char quit;
+	while (1)
+	{
+		u_end->input();
+		u_end->next = new People;
+		u_end = u_end->next;
 
+		cout << "Continue to add or not?,Y/N" << endl;
+		cin >> quit;
+		switch (quit)
+		{
+		case'Y':
+		case'y':break;
+		case'N':
+		case'n': return;
+			break;
+		default:
+			cout << "An error input,again,please..y/n";
+			cin >> quit;
+		}
+	}
 }
 
 

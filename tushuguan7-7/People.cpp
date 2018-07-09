@@ -1,7 +1,30 @@
 #include"People.h"
+#include<string>
 #include<sstream>
-
-
+void People::input()
+{
+	cout << "***Please enter people's ID(no space)***:";
+	cin >> s_id;
+	cout << endl;
+	cout << "***Please enter people's password(no space)***:";
+	cin >> s_password;
+	cout << endl;
+	cout << "***Please enter booknum if he has borrowed some(int please)***:";
+	cin >> i_the_book;
+	cout << endl;
+	string name_temp;
+	int i_all = 0;
+	while(i_the_book > 0)
+	{
+		cout << "***Please enter book's name(no space)***:";
+		cin >> name_temp;
+		v_Bbook.push_back(name_temp);
+		i_the_book--;
+		cout << endl;
+	}
+	//we can know the state of a book's loan?.
+	return;
+}
 void People::ReadFile(string &temp) 
 {
 	int identi;
@@ -31,10 +54,7 @@ void People::ReadFile(string &temp)
 		case 2:ss >> s_password; break;
 		case 3:ss >> i_the_book; break;
 		default:break;
-			//default:ss >> tempp; break;
 		}
-		//v[flag - 2] = tempp;
-		//cout << s_name << " " << s_isbn << " " << s_price << " " << s_writer << " " << s_point << " " << i_flag << endl;
 		if (flag <= 3)
 		{
 			flag++;
@@ -46,6 +66,8 @@ void People::ReadFile(string &temp)
 			{
 				flag++;
 				i = j + 1;
+				cout << s_out_temp;
+				system("pause");
 				v_Bbook.push_back(s_out_temp);
 			}
 			else
