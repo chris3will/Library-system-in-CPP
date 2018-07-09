@@ -31,7 +31,7 @@ public:
 	void Clean();//clean
 	void Returnbook(People *temp,string s_dest);
 	void Swap_Booknode(Book *q, Book *p);//sawp the node.
-	void Sort_instring();//排序，以字符串未关键词
+	//void Sort_instring();//排序，以字符串未关键词
 	int Getabooknum(string st_name);//得到书籍余量
 	void Show_allbook();//显示所有书籍
 private:

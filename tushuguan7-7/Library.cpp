@@ -37,7 +37,7 @@ Library::Library()
 	}
 	*/
 }
-//xigou function
+//constructed function
 Library::~Library()
 {
 	Save();
@@ -163,6 +163,18 @@ void Library::Add_Booknode(Book *B_temp)
 	end->next = new Book;
 	end = end->next;
 	cout << "We have made it!" << endl;
+	cout << "Do you want to see the new booklist?(If so, please enter 1)" << endl;
+	char choice;
+	cin >> choice;
+	if (choice == '1')
+	{
+		Show_allbook();
+		return;
+	}
+	else
+	{
+		return;
+	}
 }
 void Library::Clean()
 {
@@ -231,6 +243,18 @@ void Library::Del_Booknode(string t_name)
 			cout << "You have delete the book successfully!" << endl;
 	}
 	cout << "We have made it as you wish!" << endl;
+	cout << "Do you want to see the new booklist?(If so, please enter 1)" << endl;
+	char choice;
+	cin >> choice;
+	if (choice == '1')
+	{
+		Show_allbook();
+		return;
+	}
+	else
+	{
+		return;
+	}
 }//in corporation with other function!
 void Library::Del_Booknode()
 {
@@ -301,7 +325,9 @@ void Library::Borrowbook(Book *pos,People *temp)
 		pos->s_people = temp->s_id;
 		temp->v_Bbook.push_back(pos->s_name);
 		temp->i_the_book++;
+		cout << "We have helped you to borrow it, and we make a record in our list." << endl;
 	}
+	return;
 }
 void Library::Returnbook(People *temp,string s_dest)
 {
@@ -360,48 +386,56 @@ void Library::Findacurate(int i_id, People *temp)
 		cout << "Please enter the book's name,if you want to know something about it." << endl;
 		cin >> t_name;
 		int count = Getabooknum(t_name);
-		if (count>0)
-		{//We can find the book in library.
-			while (pos->s_name != t_name)
-				pos = pos->next;
-			cout << endl;
-			cout << "\t" << pos->s_name << "\t" << pos->s_isbn << "\t" << pos->s_price
+		//if (count>0)
+		//{//We can find the book in library.
+		while (pos->s_name != t_name)
+		{
+			pos = pos->next;
+		}
+		cout << endl;
+		cout << "\t" << pos->s_name << "\t" << pos->s_isbn << "\t" << pos->s_price
 				<< "\t" << pos->s_writer << "\t" << pos->s_point << "\t" << "Remain:" << count << endl;
+
+		//It 's a bit hard for us to find who has(have) borrowed the book now, sorry!
 			int choice;
 			cout << "What do you want to do now?" << endl;
-			if (i_id == 1||i_id==2)
+			if (i_id == 1 || i_id == 2)
 			{//system assistant
-				cout << "1:Delete it 2:Add a new just like it 3:Borrow it (only when remain>0)" << endl;
+				cout << "1:Delete it (only when remain>0 for some reader is keeping the book)\n2:Add a new just like it 3:Borrow it (only when remain>0)4:Find the one who borrowed it(But it a bit hard for my ablilty, sorroy)" << endl;
 				cin >> choice;
-				switch(choice)
+				switch (choice)
 				{
 				case 1:Del_Booknode(pos->s_name); break;
 				case 2:Add_Booknode(pos); break;
-				case 3:Borrowbook(pos,temp); break;//we need to store the change of state and the one who borrowed it.
+				case 3:Borrowbook(pos, temp); break;//we need to store the change of state and the one who borrowed it.
+				case 4:break;
 				}
 			}
-			else if (i_id == 3||i_id==4)
+			else if (i_id == 3 || i_id == 4)
 			{//teacher,student
-				cout << "Do you want to borrow it(only when remain>0)? If so please enter 1 or return back." << endl;
+				cout << "Do you want to borrow it (only when remain>0)? If so please enter 1 or return back." << endl;
 				cin >> choice;
-				if(choice == 1)
+				if (choice == 1)
 				{
-					Borrowbook(pos,temp);
+					Borrowbook(pos, temp);
 				}
 				else
 				{
 					return;
 				}
-			}			
+			}
 		}
-		else
-		{
-			cout << "Sorry,we can't find the book here now,maybe it was borrowed by somebody else!" << endl;
-		}
-	}
+	//else
+	////all the book have be borrowed by others.
+	//	cout << "Sorry,we can't find the book here now,maybe it was borrowed by somebody else!" << endl;
+	//
 	system("pause");
 	system("cls");
 }
+	
+
+	
+
 void Library::Findacurate()//input the name of book then output all the message about the book ,including the remain number.
 {
 	string t_name;
@@ -459,7 +493,7 @@ void Library::Save()
 		}
 	}
 	out.close();
-	cout << "(Save node successfully!)" << endl;
+	cout << "..." << endl;
 }
 //show the library
 void Library::Show_allbook()
@@ -482,6 +516,7 @@ void Library::Show_allbook()
 		}
 	}
 	system("pause");
+	return;
 }
 void Library::Swap_Booknode(Book *p, Book *q)
 {

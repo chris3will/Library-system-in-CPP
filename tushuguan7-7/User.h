@@ -2,6 +2,7 @@
 #define USER_H_
 
 #include"People.h"
+#include"Library.h"
 #include<fstream>
 class User
 {
@@ -19,6 +20,7 @@ public:
 	void User_Save();
 	void Add_People();//As a system assistant, to do the most powerful thing!
 	void Sign_in();
+	void Find_people(string ss);
 };
 
 #endif USER_H_

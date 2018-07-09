@@ -18,8 +18,6 @@ public:
 	int i_flag;
 	string s_people;
 public:
-	
-
 	Book(){}
 	Book(string s1, string s2, string s3, string s4, double po)
 	{
