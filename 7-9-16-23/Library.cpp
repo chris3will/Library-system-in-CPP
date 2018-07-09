@@ -1,0 +1,348 @@
+#include<iostream>
+#include"Book.h"
+#include<ctime>
+#include"Library.h"
+using namespace std;
+Library::Library()
+{
+	head = new Book;
+	head->next = new Book;
+	end = head->next;
+
+	ifstream in("test.csv");//the book's message were all
+	//stored in this file.And this is a major step in the process.
+	//we read the file first to find if it is empty. for eof()can not be 
+	//used as a tool to tell if it is empty. It is only when we are reading
+	//the file and meet the end can we know its is-empty.//or in.eof won't//
+	//won't return the positive,though it is empty.
+	//char ch = in.get();
+	if (in.eof())
+	{
+		cout << "file is empty" << endl;
+	}
+
+	//if it is not empty
+	while (!in.eof())
+	{
+		//cout << "xigoucishu+1";
+		string temp;
+		getline(in, temp);
+		end->ReadFile(temp);
+		if (end->s_name[0] == '\0')
+			break;
+		end->next = new Book;
+		end = end->next;
+	}
+}
+//xigou function
+Library::~Library()
+{
+	Save();
+	Book *pos = head->next;
+	Book *temp;
+	while (pos != end)
+	{
+		temp = pos;
+		pos = pos->next;
+		delete temp;
+	}
+	delete head, end;
+}
+//add new book
+void Library::showtime()
+{
+	time_t now_time = time(0);
+	struct tm tt;
+	now_time = time(0);
+	localtime_s(&tt, &now_time);
+	cout << tt.tm_hour << "-" << tt.tm_min << "-" << tt.tm_sec;
+	
+
+}
+void Library::Surface()//We now just have a common  surface without distinguish the identity.
+{
+	cout << endl;
+	cout << endl;
+	cout << endl;
+	
+	cout <<"        "<< " ---------------"; cout << "Now the time is:"; showtime(); cout << "-----------------"<<endl;
+	cout << endl;
+	cout << "        " << " --------------- "; cout << "Welcome to our library!" ; cout << "----------------"<<endl;
+	cout << endl;
+	
+	int i_choice;
+	while (1)
+	{
+		cout << "        " << " -------------------------------------------------------" << endl;
+		cout << "        " << "ح" << "              What are you want to do now?           ح" << endl;
+		cout << "        " << "ح                                                     ح" << endl;
+		cout << "        " << "ح" << "               1:Look all the book                   ح" << endl;
+		cout << "        " << "ح" << "               2:Add a book                          ح" << endl;
+		cout << "        " << "ح" << "               3:Delete(Borrow?) a book              ح" << endl;
+		cout << "        " << "ح" << "               4:Return a book                       ح" << endl;
+		cout << "        " << "ح" << "               5:Clear the list(attention)           ح" << endl;
+		cout << "        " << "ح" << "               6:Find a book                         ح" << endl;//if he is a reader,add the function for him to borrow the book.
+		cout << "        " << "ح" << "               7:Leave the library                   ح" << endl;
+		cout << "        " << " -------------------------------------------------------" << endl;
+		cin >> i_choice;
+		if (i_choice >= 1 && i_choice <= 7)
+		{
+			switch (i_choice)
+			{
+			case 1:Show_allbook(); break;
+			case 2:Add_Booknode(); break;
+			case 3:Del_Booknode(); break;
+			case 4:; break;
+			case 5:Clean(); break;
+			case 6:Findacurate(); break;
+			case 7:Save(); break;
+			}
+		}
+		else
+		{
+			cout << "You entered something beyond our ability!" << endl;
+			cout << "Now the time is:"; showtime();
+			cout << "Please tell us what do you want to do now?" << endl;
+			cout << "1:Display all the book" << endl;
+			cout << "2:Add a book" << endl;
+			cout << "3:Delete(borrow?) a book" << endl;
+			cout << "4:Return the book" << endl;
+			cout << "5:Clear the list(attention)" << endl;
+			cout << "6:Find a book" << endl;
+			cout << "7:Leave the library" << endl;
+		}
+		
+		if (i_choice == 7)
+		{
+			return;
+		}
+	}
+	return;
+}
+void Library::Add_Booknode()
+{
+	char quit;
+	while (1)
+	{
+		end->input();
+		end->next = new Book;
+		end = end->next;
+		cin >> s_name;
+		cout << "               "<<"Continue to add or not?,Y/N" << endl;
+		cin >> quit;
+		switch (quit)
+		{
+		case'Y':
+		case'y':break;
+		case'N':
+		case'n': return;
+			break;
+		default:
+			cout << "An error input,again,please..y/n";
+			cin >> quit;
+		}
+	}
+	cout << "Add Book successfully" << "\t";
+	showtime();
+	cout<<endl;
+	system("pause");
+	system("cls");
+}
+void Library::Clean()
+{
+	Book *pos = head->next;
+	if (pos == end)
+	{
+		cout << "The library is empty now��there is no need to clean it." << endl;
+	}
+	else
+	{
+		ofstream out("booklist.txt", ios::trunc);
+		out.close();
+		system("pause");
+		exit(0);
+	}
+}
+void Library::Modify()
+{
+	string t_name;
+	cout << "enter the name you want to modify:";
+	cin >> t_name;
+
+	Book *pos = head->next;
+	for (pos; pos != end; pos = pos->next)
+	{
+		if (t_name == pos->s_name)
+		{
+			pos->input();
+			break;
+		}
+	}
+	cout << "Modify successfully..." << endl;
+	system("pause");
+}
+void Library::Del_Booknode()
+{
+	string t_name;
+	Book *pos = head->next;
+	if (pos	== end)
+	{
+		cout << "empty...So there is nothing to delete" << endl;
+		return;
+	}
+
+	cout << "please enter the name you want to delete:";
+	cin >> t_name;
+	cout << endl;
+	int num = Getabooknum(t_name);//the flag==0's num.
+	int i_actDel;
+	
+	if (num > 0)
+	{//make sure here are the book we need to delete.
+		cout << "Attention!Here,we have:" << num << " copy(copies) remain that are not be borrowed currently. How many book(s) do you want to delete?" << endl;
+		cin >> i_actDel;
+		for (int i = 0; i < i_actDel; i++)
+		{
+			Book *p = head->next;
+			Book *q = head;
+			for (p; p != end; p->next)
+			{
+				if (p->s_name == t_name)
+				{
+					q->next = p->next;
+					delete p;
+					break;
+				}
+				else
+				{
+					p = p->next;
+					q = q->next;
+				}
+			}
+		}
+		if(i_actDel>0)
+		cout << "You have delete the book successfully!" << endl;
+	}
+	else
+	{
+		cout << "Can't find the name you want." << endl;
+	}
+
+
+
+	system("pause");
+	system("cls");
+}
+void Library::Borrowbook()
+{
+	Book *pos = head->next;
+	if (pos == end)
+	{
+		cout << "Sorry, my dear reader. We have no book to lend now." << endl;
+	}
+	else
+	{
+
+	}
+}
+int Library::Getabooknum(string st_name)
+{
+	int count = 0;
+	Book *pos = head->next;
+	for (pos; pos != end; pos = pos->next)
+	{
+		if (st_name == pos->s_name)
+		{
+			count++;
+		}
+	}
+	return count;
+}//Once all we have in the library ,but whether it can be borrow, we need other function to tell.
+void Library::Findacurate()//input the name of book then output all the message about the book ,including the remain number.
+{
+	string t_name;
+	Book *pos = head->next;
+	if (pos == end)
+	{
+		cout << "The library is empty now,we can find no book here!" << endl;
+	}
+	else
+	{
+		cout << "Please enter the book's name,if you want to know something about it." << endl;
+		cin >> t_name;
+		int count = Getabooknum(t_name);
+		if (count>0)
+		{//We can find the book in library.
+			while (pos->s_name != t_name)
+				pos = pos->next;
+			cout << endl;
+			cout << "\t" << pos->s_name << "\t" << pos->s_isbn << "\t" << pos->s_price
+				<< "\t" << pos->s_writer << "\t" << pos->s_point << "\t" << "Remain:" << count << endl;
+		}
+		else
+		{
+			cout << "Sorry,we can't find the book here now,maybe it was borrowed by somebody else!" << endl;
+		}
+	}
+	system("pause");
+}
+void Library::Save()
+{
+	out.open("test.csv");
+	Book *pos = head->next;
+	if (pos == end)
+	{
+		cout << "Library is empty.." << endl;
+		return;
+	}
+	else
+	{
+		for (pos; pos != end; pos = pos->next)
+		{
+			out << pos->s_name << "," << pos->s_isbn << "," << pos->s_price
+				<< "," << pos->s_writer << "," << pos->s_point<<","<<pos->i_flag<<"\n";
+		}
+	}
+	out.close();
+	cout << "Good Bye! (Save node successfully!)" << endl;
+}
+//show the library
+void Library::Show_allbook()
+{
+	if (head->next == end)
+	{
+		cout << "The library is Empty! Or there must be something wrong in the list! Please find the fault and solve it first before use." << endl;
+	}
+	cout<< "\t" <<"��"<< "numberح"<< "name" << "\t" <<"isbn" << "\t" <<"price"
+			<< "\t" <<"writer "<< "\t" <<"point" << "\t"<<"flag"<<endl;
+	int count1=1;
+	Book *pos;
+	pos = head->next;
+	for (pos; pos != end; pos = pos->next)
+	{   
+		cout << endl;
+		
+		cout<< "\t" <<"��"<<count1 <<  "ح"<<"\t"<< pos->s_name << "\t" << pos->s_isbn << "\t" << pos->s_price
+			<< "\t" << pos->s_writer << "\t" << pos->s_point << "\t"<<pos->i_flag<<endl;
+		cout << "        " << " -------------------------------------------------------" << endl;
+		count1++;
+		cout << endl;
+	}
+	system("pause");
+	system("cls");
+}
+void Library::Swap_Booknode(Book *p, Book *q)
+{
+	string tname;
+	string tisbn;
+	string tprice;
+	string twriter;
+	double tpoint;
+	q->s_name.swap(p->s_name);
+	q->s_isbn.swap(p->s_isbn);
+	q->s_price.swap(p->s_price);
+	q->s_writer.swap(p->s_writer);
+	tpoint = p->s_point;
+	p->s_point = q->s_point;
+	q->s_point = tpoint;
+}
