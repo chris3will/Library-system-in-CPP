@@ -103,7 +103,7 @@ void People::FindBook()
 	test.Lib_init();
 	//if (i_flag == 1)
 	//he is a system assistant
-	test.Findacurate(i_flag,this);
+	test.Findacurate(i_flag,this);//use two object to make this come true!
 	//else if(i_flag==2)
 	//{//he is a book assistant
 	//else if (i_flag == 3)
@@ -115,4 +115,15 @@ void People::FindBook()
 	//{
 		//cout << "There must be something wrong in your ID ,Please check your identity first!";
 	//}
+}
+void People::ReturnBook()
+{
+	Library test;
+	test.Lib_init();
+	cout << "Hello, my friend,please tell us the book you want to return.(The name of the book is ok!)" << endl;
+	string s_temp;
+	cin >> s_temp;
+	test.Returnbook(this, s_temp);
+	test.Save();
+	//first find the node that has this string,then use the special function
 }

@@ -92,10 +92,13 @@ void User::User_Save()
 					}
 				}
 			}
+			else {
+				u_out << '\n';
+			}
 		}
 	}
 	u_out.close();
-	cout << "Good Bye! (Save node successfully!)" << endl;
+	cout << "(Save node successfully!)" << endl;
 }
 void User::Add_People()
 {
@@ -121,9 +124,66 @@ void User::Add_People()
 		}
 	}
 }
-
 void User::Sign_in()
 {
+	cout << "Hello,Wplease enter your id and pass word" << endl;
+	string t_id;
+	string t_password;
+	cin >> t_id;
+	cout << endl;
+	cout << "Please enter your password now!" << endl;
+	cin >> t_password;
+	People *pos = u_head->next;
+	if (pos == u_end)
+	{
+		cout << "Sorry, we now have now user once avaliable." << endl;
+	}
+	else
+	{
+		int alive = 0;
+		int Enter_Account = t_id.size();
+		for (pos; pos != u_end; pos = pos->next)
+		{
+			if (pos->s_id == t_id)
+			{
+				if (pos->s_password == t_password)
+				{
+					alive = 1;
+					switch (Enter_Account)//根据账号长度判断用户类型
+					{
+					case 1:
+						cout << "Hi System assistant";
+						break;
+					case 2:
+						cout << "Hello Book assistant";
+						break;
+					case 3:
+						cout << "Hey Teacher";
+						break;
+					case 4:
+						cout << "Student";
+						break;
+					default:
+						break;
+					}
+					cout << " Sign in successfully!" << endl;
+					cout << "So what do you want to do now?" << endl;
+					if (Enter_Account == 1)
+					{
+						cout<<
+					}
+						//pos->FindBook();
+						//pos->ReturnBook();
+					
+				}
+				
+			}
+		}
+		if (alive == 0)
+		{
+			cout << "You must input something wrong!" << endl;
+		}
+	}
 
 }
 

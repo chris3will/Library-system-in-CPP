@@ -14,15 +14,15 @@ int main()
 	//Library aa;
 	//aa.Lib_init();
 	//aa.Surface();
-	//User eobb;
-	People test;
-	test.input();
-	test.FindBook();
-	//eobb.User_init();
-	//eobb.Show_people();
+	User eobb;
+	//People test;
+	//test.input();
+	//test.FindBook();
+	eobb.User_init();
+	eobb.Sign_in();
 	//eobb.Add_People();
 	//eobb.Show_people();
-	//eobb.User_Save();
+	eobb.User_Save();
 	system("pause");
 	return 0;
 }

@@ -286,8 +286,53 @@ void Library::Del_Booknode()
 	system("cls");
 }
 void Library::Borrowbook(Book *pos,People *temp)
-{//this fuction must be used by a student or a teacher. We need 
-	
+{//this fuction must be used by a student or a teacher. We need
+	if (pos->i_flag == 1 || (temp->i_the_book >= 10 && temp->s_id.size() == 4))
+	{
+		cout << "Sorry,you can't borrow it, for it has be borrowed by others before or you have gotten to the limited num!" << endl;
+	}
+	else if (temp->i_the_book >= 30 && temp->s_id.size() < 4)
+	{
+		cout << "Sorry , you can't borrow it, for you have gotten to the limited num!" << endl;
+	}
+	else
+	{
+		pos->i_flag = 1;//show its state 's change.
+		pos->s_people = temp->s_id;
+		temp->v_Bbook.push_back(pos->s_name);
+		temp->i_the_book++;
+	}
+}
+void Library::Returnbook(People *temp,string s_dest)
+{
+	Book *pos = head->next;
+	if (pos == end)
+	{
+		cout << "There is no book for you to return, there must be something wrong hh!" << endl;
+	}
+	else
+	{
+		for (pos; pos != end; pos = pos->next)
+		{
+			if (pos->s_name == s_dest&&pos->i_flag==1)
+			{//we find the combination
+				pos->i_flag = 0;
+				pos->s_people = '\0';
+				temp->i_the_book--;
+				vector<string>::iterator it = temp->v_Bbook.begin();
+				while (it<temp->v_Bbook.end())
+				{
+					if (*it == s_dest)
+					{
+						it = temp->v_Bbook.erase(it);
+						continue; //删除后it已经指向下一个元素了，所以不能++了，直接continue
+					}
+					++it;
+				}
+				cout << "Congratulation!" << endl;
+			}
+		}
+	}
 }
 int Library::Getabooknum(string st_name)
 {
@@ -295,7 +340,7 @@ int Library::Getabooknum(string st_name)
 	Book *pos = head->next;
 	for (pos; pos != end; pos = pos->next)
 	{
-		if (st_name == pos->s_name)
+		if (st_name == pos->s_name&&pos->i_flag==0)
 		{
 			count++;
 		}
@@ -326,7 +371,7 @@ void Library::Findacurate(int i_id, People *temp)
 			cout << "What do you want to do now?" << endl;
 			if (i_id == 1||i_id==2)
 			{//system assistant
-				cout << "1:Delete it 2:Add a new just like it 3:Borrow it(only when remain>0)" << endl;
+				cout << "1:Delete it 2:Add a new just like it 3:Borrow it (only when remain>0)" << endl;
 				cin >> choice;
 				switch(choice)
 				{
@@ -339,7 +384,7 @@ void Library::Findacurate(int i_id, People *temp)
 			{//teacher,student
 				cout << "Do you want to borrow it(only when remain>0)? If so please enter 1 or return back." << endl;
 				cin >> choice;
-				if (choice == 1)
+				if(choice == 1)
 				{
 					Borrowbook(pos,temp);
 				}
@@ -410,11 +455,11 @@ void Library::Save()
 		for (pos; pos != end; pos = pos->next)
 		{
 			out << pos->s_name << "," << pos->s_isbn << "," << pos->s_price
-				<< "," << pos->s_writer << "," << pos->s_point<<","<<pos->i_flag<<"\n";
+				<< "," << pos->s_writer << "," << pos->s_point<<","<<pos->i_flag<<","<<pos->s_people<<"\n";
 		}
 	}
 	out.close();
-	cout << "Good Bye! (Save node successfully!)" << endl;
+	cout << "(Save node successfully!)" << endl;
 }
 //show the library
 void Library::Show_allbook()
@@ -469,13 +514,12 @@ void Library::Lib_init()
 							//char ch = in.get();
 	if (in.eof())
 	{
-		cout << "file is empty" << endl;
+		cout << "File is empty" << endl;
 	}
 
 	//if it is not empty
 	while (!in.eof())
 	{
-		//cout << "xigoucishu+1";
 		string temp;
 		getline(in, temp);
 		end->ReadFile(temp);

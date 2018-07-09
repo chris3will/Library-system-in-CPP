@@ -14,6 +14,7 @@ public:
 	~People() {};
 	void FindBook();//Find the book and do something
 	void ChangePW();
+	void ReturnBook();
 	void  input();//a way to input the message.
 	void  ReadFile(string &temp);//we have different fuction for different 
 

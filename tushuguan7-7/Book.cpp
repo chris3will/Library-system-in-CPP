@@ -57,6 +57,7 @@ void Book::ReadFile(string &temp)
 			case 4:ss>>s_writer; break;
 			case 5:ss>>s_point; break;
 			case 6:ss >> i_flag; break;
+			case 7:ss >> s_people; break;
 			default:break;
 			}
 			//cout << s_name << " " << s_isbn << " " << s_price << " " << s_writer << " " << s_point << " " << i_flag << endl;
