@@ -9,17 +9,18 @@ void People::input()
 	cout << "***Please enter people's password(no space)***:";
 	cin >> s_password;
 	cout << endl;
-	cout << "***Please enter booknum if he has borrowed some(int please)***:";
+	cout << "***Please enter book_num if he has borrowed some(int please)***:";
 	cin >> i_the_book;
 	cout << endl;
 	string name_temp;
 	int i_all = 0;
-	while(i_the_book > 0)
+	int k = i_the_book;
+	while(k > 0)
 	{
 		cout << "***Please enter book's name(no space)***:";
 		cin >> name_temp;
 		v_Bbook.push_back(name_temp);
-		i_the_book--;
+		k--;
 		cout << endl;
 	}
 	//we can know the state of a book's loan?.
@@ -57,6 +58,10 @@ void People::ReadFile(string &temp)
 		}
 		if (flag <= 3)
 		{
+			if (flag == 3)
+			{
+				cout << i_the_book << endl;
+			}
 			flag++;
 			i = j + 1;	
 		}
@@ -66,9 +71,10 @@ void People::ReadFile(string &temp)
 			{
 				flag++;
 				i = j + 1;
-				cout << s_out_temp;
-				system("pause");
+				//cout << s_out_temp;
+				//system("pause");
 				v_Bbook.push_back(s_out_temp);
+				//i_the_book--;
 			}
 			else
 			{

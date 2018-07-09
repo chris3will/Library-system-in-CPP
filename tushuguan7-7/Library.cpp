@@ -64,19 +64,29 @@ void Library::showtime()
 }
 void Library::Surface()//We now just have a common  surface without distinguish the identity.
 {
-	cout << "Now the time is:"; showtime();
-	cout << "Welcome to our library!" << endl;
+	cout << endl;
+	cout << endl;
+	cout << endl;
+
+	cout << "        " << " ---------------"; cout << "Now the time is:"; showtime(); cout << "-----------------" << endl;
+	cout << endl;
+	cout << "        " << " --------------- "; cout << "Welcome to our library!"; cout << "----------------" << endl;
+	cout << endl;
+
 	int i_choice;
 	while (1)
 	{
-		cout << "What are you want to do now?" << endl;
-		cout << "1:Look all the book" << endl;
-		cout << "2:Add a book" << endl;
-		cout << "3:Delete(Borrow?) a book" << endl;
-		cout << "4:Return a book" << endl;
-		cout << "5:Clear the list(attention)" << endl;
-		cout << "6:Find a book" << endl;//if he is a reader,add the function for him to borrow the book.
-		cout << "7:Leave the library" << endl;
+		cout << "        " << " -------------------------------------------------------" << endl;
+		cout << "        " << "ح" << "              What are you want to do now?           ح" << endl;
+		cout << "        " << "ح                                                     ح" << endl;
+		cout << "        " << "ح" << "               1:Look all the book                   ح" << endl;
+		cout << "        " << "ح" << "               2:Add a book                          ح" << endl;
+		cout << "        " << "ح" << "               3:Delete(Borrow?) a book              ح" << endl;
+		cout << "        " << "ح" << "               4:Return a book                       ح" << endl;
+		cout << "        " << "ح" << "               5:Clear the list(attention)           ح" << endl;
+		cout << "        " << "ح" << "               6:Find a book                         ح" << endl;//if he is a reader,add the function for him to borrow the book.
+		cout << "        " << "ح" << "               7:Leave the library                   ح" << endl;
+		cout << "        " << " -------------------------------------------------------" << endl;
 		cin >> i_choice;
 		if (i_choice >= 1 && i_choice <= 7)
 		{
@@ -94,14 +104,24 @@ void Library::Surface()//We now just have a common  surface without distinguish 
 		else
 		{
 			cout << "You entered something beyond our ability!" << endl;
+			cout << "Now the time is:"; showtime();
+			cout << "Please tell us what do you want to do now?" << endl;
+			cout << "1:Display all the book" << endl;
+			cout << "2:Add a book" << endl;
+			cout << "3:Delete(borrow?) a book" << endl;
+			cout << "4:Return the book" << endl;
+			cout << "5:Clear the list(attention)" << endl;
+			cout << "6:Find a book" << endl;
+			cout << "7:Leave the library" << endl;
 		}
-		
+
 		if (i_choice == 7)
 		{
 			return;
 		}
 	}
 	return;
+	
 }
 void Library::Add_Booknode()
 {

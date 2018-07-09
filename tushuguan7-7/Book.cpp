@@ -5,21 +5,21 @@ using namespace std;
 
 void Book::input()
 {
-	cout << "***Please enter book's name(no space)***:";
-	cin>> s_name;
+	cout << "               " << "----Please enter book's name(no space)----:";
+	cin >> s_name;
 	cout << endl;
-	cout << "***Please enter book's isbn(no space)***:";
+	cout << "               " << "----Please enter book's isbn(no space)----:";
 	cin >> s_isbn;
 	cout << endl;
-	cout << "***Please enter book's price(no space)***:";
+	cout << "               " << "----Please enter book's price(no space)----:";
 	cin >> s_price;
 	cout << endl;
-	cout << "***Please enter book's writer(no space)***:";
+	cout << "               " << "----Please enter book's writer(no space)----:";
 	cin >> s_writer;
 	cout << endl;
-	cout << "***Please enter book's point(type:double):***";
+	cout << "               " << "----Please enter book's point(type:double):----";
 	cin >> s_point;
-//we can know the state of a book's loan?.
+	//we can know the state of a book's loan?.
 	return;
 }
 
