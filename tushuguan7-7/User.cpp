@@ -1,5 +1,6 @@
 #include "User.h"
 #include"People.h"
+#include"Library.h"
 #include<cstring>
 #include<iostream>
 #include<string>
@@ -63,30 +64,85 @@ void User::User_init()
 }
 void User::Show_people()
 {
+	system("cls");
 	if (u_head->next == u_end)
 	{
 		cout << "The User list is Empty! Or there must be something wrong in the list! Please find the fault and solve it first before use." << endl;
 	}
 	else
 	{
-		cout << "\t**ID**\t**PASSWORD**\t**HOWMANYBOOK**\t**THEBOOKLIST:"<<endl ;
+		cout << "        " << " -------------------------------------------------------" << endl;
+		cout << "\t**ID****PASSWORD****HOWMANYBOOK****THEBOOKLIST:" << endl;
 		People *pos;
 		pos = u_head->next;
 		for (pos; pos != u_end; pos = pos->next)
 		{
 			cout << endl;
-			cout << "\t" << pos->s_id << "\t" << pos->s_password << "\t" << pos->i_the_book<<"\t";
+			cout << "\t" << pos->s_id << "\t" << pos->s_password << "           " << pos->i_the_book << "                ";
 			if (pos->i_the_book > 0)
 			{
 				for (int i = 0; i < pos->i_the_book; i++)
 				{
-					cout << pos->v_Bbook[i] << "\t";
+					cout << pos->v_Bbook[i] << "        ";
 				}
 			}
 			cout << endl;
 		}
+
+		cout << "What do you want to do now? \n1:Help somebody to change his password or \n2:Add a new user in our list. Please enter your choice!" << endl;
+		char choice;
+		cin >> choice;
+		if (choice == '1')
+		{
+			cout << "Please tell us the id, if you want to help him to change the word or for some other reason." << endl;
+			string s_changeone;
+			cin >> s_changeone;
+			ChangePW(s_changeone);
+		}
+		else if (choice == '2')
+		{
+			Add_People();
+		}
+		else
+		{
+			cout << "Backward in success!" << endl;
+		}
+
+
 	}
 	system("pause");
+
+}
+void User::ChangePW(string _id)
+{
+	int alive = 0;
+	string thenew;
+	People *pos = u_head->next;
+	if (pos == u_head)
+	{
+		cout << "Sorry, there is no one in the list." << endl;
+	}
+	else
+	{
+		for (pos; pos != u_end; pos=pos->next)
+		{
+			if (pos->s_id == _id)
+			{
+				alive = 1;
+				cout << "We find the user you want now, Do you really want to change his password?(**Enter 1 or others**)" << endl;
+				int choice;
+				cin >> choice;
+				if (choice == 1)
+				{
+					cout << "Please tell us the new password you want to achieve." << endl;
+					cin >> thenew;
+					pos->s_password = thenew;
+					cout << "Congratulation!" << endl;
+				}
+			}
+		}
+	}
+	cout << "See you!" << endl;
 }
 void User::User_Save()
 {
@@ -158,6 +214,7 @@ void User::Sign_in()
 	int wrong_num = 1;
 	while (alive==0)
 	{
+		
 		if (wrong_num > 1)
 		{
 			cout << "This is the " << wrong_num << " time for you to sign in, Be careful, Please!" << endl;
@@ -172,8 +229,8 @@ void User::Sign_in()
 		}
 		cout << endl;
 		cout << "Please enter your password now!" << endl;
-		t_password = GetPasswd();
-		
+		//t_password = GetPasswd();
+		cin >> t_password;
 		Enter_Account = t_id.size();
 		People *pos = u_head->next;
 		for (pos; pos != u_end; pos = pos->next)
@@ -216,11 +273,9 @@ void User::Sign_in()
 					case 4:
 						cout << "Student";
 						break;
-					default:
-						break;
 					}
 					cout << endl;
-					cout << "Sign in successfully!" << endl;
+					cout << "You login successfully!" << endl;
 					cout << endl;
 					cout << "So what do you want to do now?" << endl;
 					int choice;
@@ -231,53 +286,63 @@ void User::Sign_in()
 						cout << endl;
 						if (round > 1)
 						{
+							system("cls");
 							cout << "***So, what about now?***" << endl;
 						}
 						if (Enter_Account == 1)
 						{
-							cout << "\t1:Find a book to do something\n\t2:Help somebody change the password\n\t3:Find a message about a people\n\t4:Backward" << endl;
+							cout << "1:Return a book\n\t2:Find a book to do something\n\t3:Help somebody change the password.(*Unachieved*)\n\t4:Find a message about a person(include yourself.\n\t5:Show all the people in the list.\n\t6:Re-login.\n\t7:Backward to windows." << endl;
 							cin >> choice;
 							if (choice == 3)
 							{
-								cout << "Please enter the Id of the person you want to know" << endl;
+								cout << "Please enter the Id of the person you want to know." << endl;
 								cin >> ss;
 							}
 							switch (choice)
 							{
-							case 1:pos->FindBook(); break;
-							case 2:; break;
-							case 3:Find_people(ss); break;
-							case 4:return;
+							case 1:pos->ReturnBook(); break;
+							case 2:pos->FindBook(); break;
+							case 3:; break;
+							case 4:Find_people(ss); break;
+							case 5:Show_people(); break;
+							case 6:Sign_in(); break;
+							case 7:return; break;
 							}
 						}
 						else if (Enter_Account == 2)
 						{
-							cout << "1:Find a book to do somthing\n2:Backward" << endl;
+							cout << "1:Find a book to do something.\n2:Know the book you have borrowed.\n3:Return a book or a kind of books.\n4:Backward to windows." << endl;
 							cin >> choice;
 							switch (choice)
 							{
-							case 1:pos->FindBook();
-							case 2:return;
+							case 1:pos->FindBook(); break;
+							case 2:Know_self(pos); break;
+							case 3:pos->ReturnBook(); break;
+							case 4:return; break;
 							}
 						}
 						else if (Enter_Account == 3)
 						{
-							cout << "1:Find a book for some information or borrow some.\n2:Backward" << endl;
+							cout << "1:Find a book to do something.\n2:Know the book you have borrowed.\n3:Return a book or a kind of books.\n4:Backward to windows." << endl;
 							cin >> choice;
 							switch (choice)
 							{
-							case 1:pos->FindBook();
-							case 2:return;
+							case 1:pos->FindBook(); break;
+							case 2:Know_self(pos); break;
+							case 3:pos->ReturnBook(); break;
+							case 4:return; break;
 							}
 						}
 						else
 						{
-							cout << "1:Find a book for some information or borrow some.\n2:Backward" << endl;
+							cout << "1:Find a book to do something.\n2:Know the book you have borrowed.\n3:Return a book or a kind of books.\n3:Backward to windows." << endl;
 							cin >> choice;
 							switch (choice)
 							{
-							case 1:pos->FindBook();
-							case 2:return;
+							case 1:pos->FindBook(); break;
+							case 2:Know_self(pos); break;
+							case 3:pos->ReturnBook(); break;
+							case 4:return; break;
 							}
 						}
 					}
@@ -289,6 +354,7 @@ void User::Sign_in()
 			cout << "You must input something wrong! Please think about it seriously then come back to us!" << endl;
 		}
 	}
+	return;
 }
 void User::Find_people(string ss)
 {
@@ -324,6 +390,43 @@ void User::Find_people(string ss)
 			cout << "Sorry, we can't find him in the list!" << endl;
 		}
 	}
+}
+void User::Know_self(People *P_temp) 
+{
+	People *pos = u_head->next;
+	if (pos == u_end)
+	{
+		cout << "Sorry, there is no one on the list." << endl;
+	}
+	else
+	{
+		int alive = 0;
+		for (pos; pos != u_end; pos = pos->next)
+		{
+			if (pos->s_id == P_temp->s_id)
+			{
+				alive = 1;
+				cout << "Here is the book you have borrowed!" << endl;
+				int k = P_temp->i_the_book;
+				if(k>0)
+				while (k)
+				{
+					cout << P_temp->v_Bbook[k - 1] << "\t";
+					k--;
+				}
+			}
+		}
+		if (alive == 1)
+		{
+			cout << endl;
+		}
+	}
+}
+void User::Add_Book()
+{
+	Library test;
+	test.Lib_init();
+	test.Save();
 }
 
 

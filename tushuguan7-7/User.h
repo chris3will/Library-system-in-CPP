@@ -21,6 +21,9 @@ public:
 	void Add_People();//As a system assistant, to do the most powerful thing!
 	void Sign_in();
 	void Find_people(string ss);
+	void Know_self(People *P_temp);
+	void Add_Book();
+	void ChangePW(string _id);
 };
 
 #endif USER_H_

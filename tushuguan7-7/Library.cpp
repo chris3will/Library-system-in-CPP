@@ -154,6 +154,7 @@ void Library::Add_Booknode()
 }
 void Library::Add_Booknode(Book *B_temp)
 {
+
 	end->s_name = B_temp->s_name;
 	end->s_isbn = B_temp->s_isbn;
 	end->s_price = B_temp->s_price;
@@ -169,11 +170,10 @@ void Library::Add_Booknode(Book *B_temp)
 	if (choice == '1')
 	{
 		Show_allbook();
-		return;
 	}
 	else
 	{
-		return;
+		
 	}
 }
 void Library::Clean()
@@ -250,10 +250,11 @@ void Library::Del_Booknode(string t_name)
 	{
 		Show_allbook();
 		return;
+		
 	}
 	else
 	{
-		return;
+		
 	}
 }//in corporation with other function!
 void Library::Del_Booknode()
@@ -325,12 +326,13 @@ void Library::Borrowbook(Book *pos,People *temp)
 		pos->s_people = temp->s_id;
 		temp->v_Bbook.push_back(pos->s_name);
 		temp->i_the_book++;
+		Save();
 		cout << "We have helped you to borrow it, and we make a record in our list." << endl;
 	}
-	return;
 }
 void Library::Returnbook(People *temp,string s_dest)
 {
+	int alive = 0;
 	Book *pos = head->next;
 	if (pos == end)
 	{
@@ -342,6 +344,7 @@ void Library::Returnbook(People *temp,string s_dest)
 		{
 			if (pos->s_name == s_dest&&pos->i_flag==1)
 			{//we find the combination
+				alive = 1;
 				pos->i_flag = 0;
 				pos->s_people = '\0';
 				temp->i_the_book--;
@@ -357,6 +360,10 @@ void Library::Returnbook(People *temp,string s_dest)
 				}
 				cout << "Congratulation!" << endl;
 			}
+		}
+		if (alive == 0)
+		{
+			cout << "Sorry, you don't have the book, be carefule please." << endl;
 		}
 	}
 }
@@ -375,6 +382,7 @@ int Library::Getabooknum(string st_name)
 }//Once all we have in the library ,but whether it can be borrow, we need other function to tell.
 void Library::Findacurate(int i_id, People *temp)
 {
+	system("cls");
 	string t_name;
 	Book *pos = head->next;
 	if (pos == end)
@@ -388,9 +396,12 @@ void Library::Findacurate(int i_id, People *temp)
 		int count = Getabooknum(t_name);
 		//if (count>0)
 		//{//We can find the book in library.
-		while (pos->s_name != t_name)
+		if (count > 0)
 		{
-			pos = pos->next;
+			while ((pos->s_name != t_name)||pos->i_flag==1)
+			{
+				pos = pos->next;
+			}
 		}
 		cout << endl;
 		cout << "\t" << pos->s_name << "\t" << pos->s_isbn << "\t" << pos->s_price
@@ -413,15 +424,16 @@ void Library::Findacurate(int i_id, People *temp)
 			}
 			else if (i_id == 3 || i_id == 4)
 			{//teacher,student
-				cout << "Do you want to borrow it (only when remain>0)? If so please enter 1 or return back." << endl;
+				cout << "Do you want to borrow it (only when remain>0)? If so please enter 1 or enter others for the return back." << endl;
 				cin >> choice;
 				if (choice == 1)
 				{
 					Borrowbook(pos, temp);
+					
 				}
 				else
 				{
-					return;
+					
 				}
 			}
 		}
@@ -516,7 +528,7 @@ void Library::Show_allbook()
 		}
 	}
 	system("pause");
-	return;
+	
 }
 void Library::Swap_Booknode(Book *p, Book *q)
 {
