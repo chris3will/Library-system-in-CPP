@@ -463,10 +463,6 @@ void Library::Findacurate(int i_id, People *temp)
 	system("pause");
 	system("cls");
 }
-	
-
-	
-
 void Library::Findacurate()//input the name of book then output all the message about the book ,including the remain number.
 {
 	string t_name;
@@ -526,7 +522,6 @@ void Library::Save()
 	out.close();
 	cout << "..." << endl;
 }
-//show the library
 void Library::Show_allbook()
 {
 	if (head->next == end)
@@ -564,14 +559,13 @@ void Library::Swap_Booknode(Book *p, Book *q)
 	p->s_point = q->s_point;
 	q->s_point = tpoint;
 }
-
 void Library::Lib_init()
 {
 	head = new Book;
 	head->next = new Book;
 	end = head->next;
 
-	ifstream in("test.csv");//the book's message were all
+	ifstream in("Book.csv");//the book's message were all
 							//stored in this file.And this is a major step in the process.
 							//we read the file first to find if it is empty. for eof()can not be 
 							//used as a tool to tell if it is empty. It is only when we are reading

@@ -8,8 +8,6 @@
 #include <stdio.h>
 #include <conio.h>
 #define MAX_STR_LEN  32  
-
-
 /*1:return the book
 2:find the book
 3:delete the book*/
@@ -89,7 +87,7 @@ void User::Show_people()
 			cout << endl;
 		}
 
-		cout << "What do you want to do now? \n1:Help somebody to change his password or \n2:Add a new user in our list. Please enter your choice!" << endl;
+		cout << "What do you want to do now? (Enter other digit to leave.)\n1:Help somebody to change his password or \n2:Add a new user in our list. Please enter your choice!" << endl;
 		char choice;
 		cin >> choice;
 		if (choice == '1')
@@ -237,9 +235,11 @@ void User::Sign_in()
 		{
 			if (pos->s_id == t_id)
 			{
+				//cout << "The password outght to be " << pos->s_id << endl;
 				if (pos->s_password == t_password)
 				{
 					alive = 1;
+					system("cls");
 				}
 			}
 		}
@@ -277,7 +277,7 @@ void User::Sign_in()
 					cout << endl;
 					cout << "You login successfully!" << endl;
 					cout << endl;
-					cout << "So what do you want to do now?" << endl;
+					cout << "So what do you want to do now? (Enter the other digit to leave.)" << endl;
 					int choice;
 					string ss;
 					int round = 1;
@@ -335,7 +335,7 @@ void User::Sign_in()
 						}
 						else
 						{
-							cout << "1:Find a book to do something.\n2:Know the book you have borrowed.\n3:Return a book or a kind of books.\n3:Backward to windows." << endl;
+							cout << "1:Find a book to do something.\n2:Know the book you have borrowed.\n3:Return a book or a kind of books.\n4:Backward to windows." << endl;
 							cin >> choice;
 							switch (choice)
 							{

@@ -98,23 +98,12 @@ void People::ReadFile(string &temp)
 }
 void People::FindBook()
 {
-	int i_flag = s_id.size();//to tell us who he is
+	int i_flag = s_id.size();
 	Library test;
 	test.Lib_init();
-	//if (i_flag == 1)
-	//he is a system assistant
-	test.Findacurate(i_flag,this);//use two object to make this come true!
-	//else if(i_flag==2)
-	//{//he is a book assistant
-	//else if (i_flag == 3)
-	//he is a teacher
-	//else if (i_flag == 4)
-	//he is a student ,and his book maxmun can't be more than 10!
+	
+	test.Findacurate(i_flag,this);
 	test.Save();
-	//if(i_flag<1||i_flag>4)
-	//{
-		//cout << "There must be something wrong in your ID ,Please check your identity first!";
-	//}
 }
 void People::ReturnBook()
 {
