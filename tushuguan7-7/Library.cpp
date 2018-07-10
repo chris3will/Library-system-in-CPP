@@ -249,7 +249,6 @@ void Library::Del_Booknode(string t_name)
 	if (choice == '1')
 	{
 		Show_allbook();
-		return;
 		
 	}
 	else
@@ -380,6 +379,19 @@ int Library::Getabooknum(string st_name)
 	}
 	return count;
 }//Once all we have in the library ,but whether it can be borrow, we need other function to tell.
+int Library::GetALLbooknum(string st_name)
+{
+	int count = 0;
+	Book *pos = head->next;
+	for (pos; pos != end; pos = pos->next)
+	{
+		if (st_name == pos->s_name)
+		{
+			count++;
+		}
+	}
+	return count;
+}
 void Library::Findacurate(int i_id, People *temp)
 {
 	system("cls");
@@ -394,6 +406,7 @@ void Library::Findacurate(int i_id, People *temp)
 		cout << "Please enter the book's name,if you want to know something about it." << endl;
 		cin >> t_name;
 		int count = Getabooknum(t_name);
+		int countall = GetALLbooknum(t_name);
 		//if (count>0)
 		//{//We can find the book in library.
 		if (count > 0)
@@ -403,16 +416,22 @@ void Library::Findacurate(int i_id, People *temp)
 				pos = pos->next;
 			}
 		}
-		cout << endl;
-		cout << "\t" << pos->s_name << "\t" << pos->s_isbn << "\t" << pos->s_price
-				<< "\t" << pos->s_writer << "\t" << pos->s_point << "\t" << "Remain:" << count << endl;
-
+		if (countall == 0)
+		{
+			cout << "The book is not in our library! Sorry for that." << endl;
+		}
+		else
+		{
+			cout << endl;
+			cout << "\t" << pos->s_name << "\t" << pos->s_isbn << "\t" << pos->s_price
+			<< "\t" << pos->s_writer << "\t" << pos->s_point << "\t" << "Remain:" << count << endl;
+		}
 		//It 's a bit hard for us to find who has(have) borrowed the book now, sorry!
 			int choice;
 			cout << "What do you want to do now?" << endl;
 			if (i_id == 1 || i_id == 2)
 			{//system assistant
-				cout << "1:Delete it (only when remain>0 for some reader is keeping the book)\n2:Add a new just like it 3:Borrow it (only when remain>0)4:Find the one who borrowed it(But it a bit hard for my ablilty, sorroy)" << endl;
+				cout << "1:Delete it (only when the remain>0 Or for some readers is keeping the book)\n2:Add a new just like it 3:Borrow it (only when remain>0)4:Find the one who borrowed it(***But it a bit hard for my ablilty, sorry***)" << endl;
 				cin >> choice;
 				switch (choice)
 				{

@@ -33,6 +33,7 @@ public:
 	void Swap_Booknode(Book *q, Book *p);//sawp the node.
 	//void Sort_instring();//排序，以字符串未关键词
 	int Getabooknum(string st_name);//得到书籍余量
+	int GetALLbooknum(string st_name);//得到书库中的量
 	void Show_allbook();//显示所有书籍
 private:
 	Book * head;

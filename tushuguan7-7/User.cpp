@@ -291,7 +291,7 @@ void User::Sign_in()
 						}
 						if (Enter_Account == 1)
 						{
-							cout << "1:Return a book\n\t2:Find a book to do something\n\t3:Help somebody change the password.(*Unachieved*)\n\t4:Find a message about a person(include yourself.\n\t5:Show all the people in the list.\n\t6:Re-login.\n\t7:Backward to windows." << endl;
+							cout << "\t1:Return a book\n\t2:Find a book to do something\n\t3:Help somebody change the password.(*Unachieved*)\n\t4:Find a message about a person(include yourself.\n\t5:Show all the people in the list.\n\t6:Re-login.\n\t7:Backward to windows." << endl;
 							cin >> choice;
 							if (choice == 3)
 							{
