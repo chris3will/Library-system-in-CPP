@@ -163,7 +163,6 @@ void Library::Add_Booknode(Book *B_temp)
 	end->i_flag = 0;
 	end->next = new Book;
 	end = end->next;
-	
 	cout << "We have made it!" << endl;
 	cout << "Do you want to see the new booklist?(If so, please enter 1)" << endl;
 	char choice;
@@ -213,22 +212,21 @@ void Library::Modify()
 }//change the information of a book.
 void Library::Del_Booknode(string t_name)
 {
-	int num = Getabooknum(t_name);//the flag==0's num存书余量
-	int allnum = GetALLbooknum(t_name);
+	int num = Getabooknum(t_name);//the flag==0's num.
 	Book *pos = head->next;
 	int i_actDel;
 	if (num > 0)
 	{//make sure here are the book we need to delete.
 		cout << "Attention!Here,we have:" << num << " copy(copies) remain that are not be borrowed currently. How many book(s) do you want to delete?" << endl;
 		cin >> i_actDel;
-		//cout << "\b";
+		cout << "\b";
 		for (int i = 0; i < i_actDel; i++)
 		{
 			Book *p = head->next;
 			Book *q = head;
 			for (p; p != end; p->next)
 			{
-				if (p->s_name == t_name&&p->i_flag==0)
+				if (p->s_name == t_name)
 				{
 					q->next = p->next;
 					delete p;
@@ -244,8 +242,7 @@ void Library::Del_Booknode(string t_name)
 		if (i_actDel>0)
 			cout << "You have delete the book successfully!" << endl;
 	}
-	if(num==0)
-	cout << "Sorry we can not make it as you wish!" << endl;
+	cout << "We have made it as you wish!" << endl;
 	cout << "Do you want to see the new booklist?(If so, please enter 1)" << endl;
 	char choice;
 	cin >> choice;
@@ -314,12 +311,7 @@ void Library::Del_Booknode()
 }
 void Library::Borrowbook(Book *pos,People *temp)
 {//this fuction must be used by a student or a teacher. We need
-	if (pos->i_flag == 1)
-	{
-		cout << "Sorry, you can't borrow it," << endl;
-			return;
-	}
-	if (pos->i_flag == 1 ||(temp->i_the_book >= 10 && temp->s_id.size() == 4))
+	if (pos->i_flag == 1 || (temp->i_the_book >= 10 && temp->s_id.size() == 4))
 	{
 		cout << "Sorry,you can't borrow it, for it has be borrowed by others before or you have gotten to the limited num!" << endl;
 	}
@@ -333,7 +325,7 @@ void Library::Borrowbook(Book *pos,People *temp)
 		pos->s_people = temp->s_id;
 		temp->v_Bbook.push_back(pos->s_name);
 		temp->i_the_book++;
-		//Save();
+		Save();
 		cout << "We have helped you to borrow it, and we make a record in our list." << endl;
 	}
 }
@@ -375,7 +367,7 @@ void Library::Returnbook(People *temp,string s_dest)
 	}
 }
 int Library::Getabooknum(string st_name)
-{//这本书的实际可借阅量
+{
 	int count = 0;
 	Book *pos = head->next;
 	for (pos; pos != end; pos = pos->next)
@@ -413,46 +405,33 @@ void Library::Findacurate(int i_id, People *temp)
 	{
 		cout << "Please enter the book's name,if you want to know something about it." << endl;
 		cin >> t_name;
-		int count = Getabooknum(t_name);//可借阅的剩余量
-		int countall = GetALLbooknum(t_name);//
+		int count = Getabooknum(t_name);
+		int countall = GetALLbooknum(t_name);
 		//if (count>0)
 		//{//We can find the book in library.
-		if (countall > 0)
-		{//这本书存在，可以显示信息
-			if (count > 0)
-			{
-				while (!(pos->s_name==t_name&&pos->i_flag==0))
-				{
-					//cout << pos->s_name << "\t***" << endl;
-					pos = pos->next;
-				}
-				cout << endl;
-				cout << "\t" << pos->s_name << "\t" << pos->s_isbn << "\t" << pos->s_price
-					<< "\t" << pos->s_writer << "\t" << pos->s_point << "\t" << "Remain:" << count << endl;
-			}
-			else if(count==0)
-			{//既然都借不了，就找到第一本即可
-				while ((pos->s_name != t_name))
-				{
-					pos = pos->next;
-				}
-				cout << endl;
-				cout << "\t" << pos->s_name << "\t" << pos->s_isbn << "\t" << pos->s_price
-					<< "\t" << pos->s_writer << "\t" << pos->s_point << "\t" << "Remain:" << count << endl;
-			}
-		}
-		else if(countall==0)
+		if (count > 0)
 		{
-			cout << "Sorry, the book is not in our library!" << endl;
-			return;
+			while ((pos->s_name != t_name)||pos->i_flag==1)
+			{
+				pos = pos->next;
+			}
 		}
-		
+		if (countall == 0)
+		{
+			cout << "The book is not in our library! Sorry for that." << endl;
+		}
+		else
+		{
+			cout << endl;
+			cout << "\t" << pos->s_name << "\t" << pos->s_isbn << "\t" << pos->s_price
+			<< "\t" << pos->s_writer << "\t" << pos->s_point << "\t" << "Remain:" << count << endl;
+		}
 		//It 's a bit hard for us to find who has(have) borrowed the book now, sorry!
 			int choice;
-			cout << "What do you want to do now? (Enter the other digit to leave.)" << endl;
+			cout << "What do you want to do now?" << endl;
 			if (i_id == 1 || i_id == 2)
 			{//system assistant
-				cout << "1:Delete it (only when the remain>0\nOr for some readers is keeping the book)\n2:Add a new just like it.\n3:Borrow it (only when remain>0).\n4:Find the one who borrowed it(***But it a bit hard for my ablilty, sorry***)" << endl;
+				cout << "1:Delete it (only when the remain>0 Or for some readers is keeping the book)\n2:Add a new just like it 3:Borrow it (only when remain>0)4:Find the one who borrowed it(***But it a bit hard for my ablilty, sorry***)" << endl;
 				cin >> choice;
 				switch (choice)
 				{
@@ -464,18 +443,12 @@ void Library::Findacurate(int i_id, People *temp)
 			}
 			else if (i_id == 3 || i_id == 4)
 			{//teacher,student
-				
 				cout << "Do you want to borrow it (only when remain>0)? If so please enter 1 or enter others for the return back." << endl;
-				
 				cin >> choice;
-				if (count == 0)
-				{
-					cout << "Wait, we find there is no remain in the library." << endl;
-					return;
-				}
-				if (choice == 1&&count>0)
+				if (choice == 1)
 				{
 					Borrowbook(pos, temp);
+					
 				}
 				else
 				{
@@ -531,7 +504,7 @@ void Library::Findacurate()//input the name of book then output all the message 
 }
 void Library::Save()
 {
-	out.open("Book.csv");
+	out.open("test.csv");
 	Book *pos = head->next;
 	if (pos == end)
 	{
@@ -568,7 +541,6 @@ void Library::Show_allbook()
 			cout << endl;
 		}
 	}
-	
 	system("pause");
 	
 }

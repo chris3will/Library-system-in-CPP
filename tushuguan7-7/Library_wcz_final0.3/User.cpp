@@ -434,8 +434,8 @@ void User::Sign_in()
 					cout << "           ¡îYou login successfully!" << endl;
 					cout << endl;
 					cout << "           ¡ïSo what do you want to do now?" << endl;
-					cout <<  endl;
-					char choice;
+					cout << "*************************************************************" << endl;
+					int choice;
 					string ss;
 					int round = 1;
 					while (1)
@@ -455,26 +455,22 @@ void User::Sign_in()
 							cout << "*\t5:Show all the people in the list.                   *\n";
 							cout << "*\t6:Re-login.                                          *\n";
 							cout << "*\t7:Backward to windows.                               *\n";
-							cout <<  endl;
+							cout << "*************************************************************" << endl;
 							cin >> choice;
-							if (choice == '3')
+							if (choice == 3)
 							{
 								cout << "Please enter the Id of the person you want to know." << endl;
 								cin >> ss;
 							}
 							switch (choice)
 							{
-							case '1':pos->ReturnBook(); break;
-							case '2':pos->FindBook(); break;
-							case '3':; break;
-							case '4':Find_people(ss); break;
-							case '5':Show_people(); break;
-							case '6':Sign_in(); break;
-							case '7':return; break;
-							default:cout << "System error, please re-login the system! Please reopen this program!" << endl;
-								system("pause");
-								return; break;
-							
+							case 1:pos->ReturnBook(); break;
+							case 2:pos->FindBook(); break;
+							case 3:; break;
+							case 4:Find_people(ss); break;
+							case 5:Show_people(); break;
+							case 6:Sign_in(); break;
+							case 7:return; break;
 							}
 						}
 						else if (Enter_Account == 2)
@@ -483,10 +479,10 @@ void User::Sign_in()
 							cin >> choice;
 							switch (choice)
 							{
-							case '1':pos->FindBook(); break;
-							case '2':Know_self(pos); break;
-							case '3':pos->ReturnBook(); break;
-							case '4':return; break;
+							case 1:pos->FindBook(); break;
+							case 2:Know_self(pos); break;
+							case 3:pos->ReturnBook(); break;
+							case 4:return; break;
 							}
 						}
 						else if (Enter_Account == 3)
@@ -495,22 +491,22 @@ void User::Sign_in()
 							cin >> choice;
 							switch (choice)
 							{
-							case '1':pos->FindBook(); break;
-							case '2':Know_self(pos); break;
-							case '3':pos->ReturnBook(); break;
-							case '4':return; break;
+							case 1:pos->FindBook(); break;
+							case 2:Know_self(pos); break;
+							case 3:pos->ReturnBook(); break;
+							case 4:return; break;
 							}
 						}
 						else
 						{
-							cout << "1:Find a book to do something.\n2:Know the book you have borrowed.\n3:Return a book or a kind of books.\n4:Backward to windows." << endl;
+							cout << "1:Find a book to do something.\n2:Know the book you have borrowed.\n3:Return a book or a kind of books.\n3:Backward to windows." << endl;
 							cin >> choice;
 							switch (choice)
 							{
-							case '1':pos->FindBook(); break;
-							case '2':Know_self(pos); break;
-							case '3':pos->ReturnBook(); break;
-							case '4':return; break;
+							case 1:pos->FindBook(); break;
+							case 2:Know_self(pos); break;
+							case 3:pos->ReturnBook(); break;
+							case 4:return; break;
 							}
 						}
 					}

@@ -2,7 +2,6 @@
 #define LIBRARY_H_
 #include<cstring>
 #include"People.h"
-#include"User.h"
 #include"Book.h"
 class People;
 class User;
