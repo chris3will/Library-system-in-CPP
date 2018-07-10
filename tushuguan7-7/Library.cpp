@@ -428,10 +428,10 @@ void Library::Findacurate(int i_id, People *temp)
 		}
 		//It 's a bit hard for us to find who has(have) borrowed the book now, sorry!
 			int choice;
-			cout << "What do you want to do now?" << endl;
+			cout << "What do you want to do now? (Enter the other digit to leave." << endl;
 			if (i_id == 1 || i_id == 2)
 			{//system assistant
-				cout << "1:Delete it (only when the remain>0 Or for some readers is keeping the book)\n2:Add a new just like it 3:Borrow it (only when remain>0)4:Find the one who borrowed it(***But it a bit hard for my ablilty, sorry***)" << endl;
+				cout << "1:Delete it (only when the remain>0 Or for some readers is keeping the book)\n2:Add a new just like it.\n3:Borrow it (only when remain>0).\n4:Find the one who borrowed it(***But it a bit hard for my ablilty, sorry***)" << endl;
 				cin >> choice;
 				switch (choice)
 				{

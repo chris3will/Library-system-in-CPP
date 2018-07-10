@@ -204,6 +204,7 @@ void User::Add_People()
 }
 void User::Sign_in()
 {
+	/*
 	cout << "Hello Welcome to our library, please enter your id and password" << endl;
 	string t_id;
 	string t_password;
@@ -355,7 +356,170 @@ void User::Sign_in()
 		}
 	}
 	return;
+	*/
+	cout << "-------------Hello Welcome to our library-------------" << endl;
+	cout << endl;
+	cout << "-----------Please enter your ID and PASSWORD----------" << endl;
+	string t_id;
+	string t_password;
+	int alive = 0;
+	int Enter_Account;
+	int wrong_num = 1;
+	while (alive == 0)
+	{
+
+		if (wrong_num > 1)
+		{
+			cout << "!!This is the " << wrong_num << " time for you to sign in, Be careful, Please!" << endl;
+			cout << "Or you can choose to backward sometime to think the ID-PASSWORD.\n(If so, please enter ***** as your next ID)" << endl;
+
+		}
+		cout << "   ------------Please enter your ID--------------" << endl;
+		cout << "                      ID:";
+		cin >> t_id;
+		if (t_id == "*****")
+		{
+			return;
+		}
+		cout << endl;
+		cout << "     -----Please enter your PASSWORD now!------" << endl;
+		cout << "                    PASSWORD:";
+		//t_password = GetPasswd();
+		cin >> t_password;
+		Enter_Account = t_id.size();
+		People *pos = u_head->next;
+		for (pos; pos != u_end; pos = pos->next)
+		{
+			if (pos->s_id == t_id)
+			{
+				if (pos->s_password == t_password)
+				{
+					alive = 1;
+				}
+			}
+		}
+		wrong_num++;
+	}
+	People *pos = u_head->next;
+	if (pos == u_end)
+	{
+		cout << "Sorry, we now have no user once avaliable." << endl;
+	}
+	else
+	{
+		for (pos; pos != u_end; pos = pos->next)
+		{
+			if (pos->s_id == t_id)
+			{
+				if (pos->s_password == t_password)
+				{
+					alive = 1;
+					switch (Enter_Account)//根据账号长度判断用户类型
+					{
+					case 1:
+						cout << "\t-----------Hi System assistant-----------";
+						break;
+					case 2:
+						cout << "\t-----------Hello Book assistant-----------";
+						break;
+					case 3:
+						cout << "\t-----------Hey Teacher-----------";
+						break;
+					case 4:
+						cout << "\t-----------Hey Student-----------";
+						break;
+					}
+					cout << endl;
+					cout << "           ☆You login successfully!" << endl;
+					cout << endl;
+					cout << "           ★So what do you want to do now?" << endl;
+					cout << "*************************************************************" << endl;
+					int choice;
+					string ss;
+					int round = 1;
+					while (1)
+					{
+						cout << endl;
+						if (round > 1)
+						{
+							system("cls");
+							cout << "***So, what about now?***" << endl;
+						}
+						if (Enter_Account == 1)
+						{
+							cout << "*\t1:Return a book                                      *\n";
+							cout << "*\t2:Find a book to do something                        *\n";
+							cout << "*\t3:Help somebody change the password.(*Unachieved*)   *\n";
+							cout << "*\t4:Find a message about a person(include yourself.    *\n";
+							cout << "*\t5:Show all the people in the list.                   *\n";
+							cout << "*\t6:Re-login.                                          *\n";
+							cout << "*\t7:Backward to windows.                               *\n";
+							cout << "*************************************************************" << endl;
+							cin >> choice;
+							if (choice == 3)
+							{
+								cout << "Please enter the Id of the person you want to know." << endl;
+								cin >> ss;
+							}
+							switch (choice)
+							{
+							case 1:pos->ReturnBook(); break;
+							case 2:pos->FindBook(); break;
+							case 3:; break;
+							case 4:Find_people(ss); break;
+							case 5:Show_people(); break;
+							case 6:Sign_in(); break;
+							case 7:return; break;
+							}
+						}
+						else if (Enter_Account == 2)
+						{
+							cout << "1:Find a book to do something.\n2:Know the book you have borrowed.\n3:Return a book or a kind of books.\n4:Backward to windows." << endl;
+							cin >> choice;
+							switch (choice)
+							{
+							case 1:pos->FindBook(); break;
+							case 2:Know_self(pos); break;
+							case 3:pos->ReturnBook(); break;
+							case 4:return; break;
+							}
+						}
+						else if (Enter_Account == 3)
+						{
+							cout << "1:Find a book to do something.\n2:Know the book you have borrowed.\n3:Return a book or a kind of books.\n4:Backward to windows." << endl;
+							cin >> choice;
+							switch (choice)
+							{
+							case 1:pos->FindBook(); break;
+							case 2:Know_self(pos); break;
+							case 3:pos->ReturnBook(); break;
+							case 4:return; break;
+							}
+						}
+						else
+						{
+							cout << "1:Find a book to do something.\n2:Know the book you have borrowed.\n3:Return a book or a kind of books.\n3:Backward to windows." << endl;
+							cin >> choice;
+							switch (choice)
+							{
+							case 1:pos->FindBook(); break;
+							case 2:Know_self(pos); break;
+							case 3:pos->ReturnBook(); break;
+							case 4:return; break;
+							}
+						}
+					}
+				}
+			}
+		}
+		if (alive == 0)
+		{
+			cout << "You must input something wrong! Please think about it seriously then come back to us!" << endl;
+		}
+	}
+	return;
 }
+
 void User::Find_people(string ss)
 {
 	People *pos = u_head->next;
